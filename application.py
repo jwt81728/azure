@@ -48,8 +48,6 @@ def callback():
     return "OK"
 
 
-app = Flask(__name__)
-
 
 
 @app.route("/")
@@ -64,6 +62,8 @@ def hello():
             <center><h1>HI Bitch</h1></center>
         </body>
         """
+
+app = Flask(__name__)
 
 
 
