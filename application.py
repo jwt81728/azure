@@ -49,7 +49,7 @@ def callback():
         abort(400)
     return "OK"
 
-@handler.add(MessageEvent, message=TextMessage)
+@HANDLER.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     url_dict = {
       "TIBAME":"https://www.tibame.com/coursegoodjob/traffic_cli", 
