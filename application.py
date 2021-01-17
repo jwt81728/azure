@@ -31,6 +31,23 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     "hello world"
-    return "Hello World!!!!!"
+    return """
+        <html>
+        <head>
+            <title>CEB101</title>
+        <head>
+        <body>
+            <center><h1>HI Bitch</h1></center>
+        </body>
+        """
+
+
+    
+
+
+
+
+
+
 
 
