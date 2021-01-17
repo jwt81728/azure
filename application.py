@@ -33,6 +33,8 @@ LINE_TOKEN = "oyrxPFqR4Bq/DUtFNVB0HoZDBMFc+LlVuWtQgW4Rcf7UwMA/ZwZEiNDgQEC/5CjOfO
 LINE_BOT = LineBotApi(LINE_TOKEN)
 HANDLER = WebhookHandler(LINE_SECRET)
 
+app = Flask(__name__)
+
 @app.route("/callback", methods=["POST"])
 def callback():
     # X-Line-Signature: 數位簽章
@@ -63,7 +65,7 @@ def hello():
         </body>
         """
 
-app = Flask(__name__)
+
 
 
 
