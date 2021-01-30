@@ -28,12 +28,31 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 
-LINE_SECRET = "7a33ea27fe76abfcb892fe6bab73d3e9"
-LINE_TOKEN = "oyrxPFqR4Bq/DUtFNVB0HoZDBMFc+LlVuWtQgW4Rcf7UwMA/ZwZEiNDgQEC/5CjOfODkZJkqoj/QoE+MGcSombZckN07C1uPlLVERXCO+5MVwiDaouEtaXJxPol49+fG5iiyoJMToUbtsAQJxJZdhAdB04t89/1O/w1cDnyilFU="
+
+
+app = Flask(__name__)
+
+CONFIG = json.load(open("/home/config.json", "r"))
+
+SUBSCRIPTION_KEY = CONFIG["azure"]["subscription_key"]
+ENDPOINT = CONFIG["azure"]["endpoint"]
+CV_CLIENT = ComputerVisionClient(
+    ENDPOINT, CognitiveServicesCredentials(SUBSCRIPTION_KEY)
+)
+
+FACE_KEY = CONFIG["azure"]["face_key"]
+FACE_END = CONFIG["azure"]["face_end"]
+FACE_CLIENT = FaceClient(FACE_END, CognitiveServicesCredentials(FACE_KEY))
+PERSON_GROUP_ID = "tibame"
+
+LINE_SECRET = CONFIG["line"]["line_secret"]
+LINE_TOKEN = CONFIG["line"]["line_token"]
 LINE_BOT = LineBotApi(LINE_TOKEN)
 HANDLER = WebhookHandler(LINE_SECRET)
 
-app = Flask(__name__)
+
+IMGUR_CONFIG = CONFIG["imgur"]
+IMGUR_CLIENT = Imgur(config=IMGUR_CONFIG)
 
 @app.route("/callback", methods=["POST"])
 def callback():
