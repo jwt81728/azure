@@ -20,7 +20,7 @@ FACE_END = CONFIG["azure"]["face_end"]
 FACE_CLIENT = FaceClient(FACE_END, CognitiveServicesCredentials(FACE_KEY))
 
 # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
-PERSON_GROUP_ID = "tibame"
+PERSON_GROUP_ID = "boy"
 
 
 def train_person(group_id, name, image_list):
