@@ -43,7 +43,9 @@ CV_CLIENT = ComputerVisionClient(
 FACE_KEY = CONFIG["azure"]["face_key"]
 FACE_END = CONFIG["azure"]["face_end"]
 FACE_CLIENT = FaceClient(FACE_END, CognitiveServicesCredentials(FACE_KEY))
-PERSON_GROUP_ID_s = ["yu","boy"]
+
+PERSON_GROUP_ID = "boy"
+
 
 LINE_SECRET = CONFIG["line"]["line_secret"]
 LINE_TOKEN = CONFIG["line"]["line_token"]
@@ -148,11 +150,10 @@ def azure_face_recognition(filename):
         img, detection_model="detection_01"
     )
 	
-    for i in PERSON_GROUP_ID_s:
-	 PERSON_GROUP_ID = i	
+	
     if len(detected_face) != 1:
         return ""
-    results = FACE_CLIENT.face.identify([detected_face[0].face_id], i)
+    results = FACE_CLIENT.face.identify([detected_face[0].face_id], PERSON_GROUP_ID)
     if len(results) == 0:
         return "unknown"
     result = results[0].as_dict()
@@ -161,7 +162,7 @@ def azure_face_recognition(filename):
     if result["candidates"][0]["confidence"] < 0.5:
         return "unknown"
     person = FACE_CLIENT.person_group_person.get(
-        i, result["candidates"][0]["person_id"]
+        PERSON_GROUP_ID, result["candidates"][0]["person_id"]
     )
     return person.name
 
