@@ -43,7 +43,10 @@ CV_CLIENT = ComputerVisionClient(
 FACE_KEY = CONFIG["azure"]["face_key"]
 FACE_END = CONFIG["azure"]["face_end"]
 FACE_CLIENT = FaceClient(FACE_END, CognitiveServicesCredentials(FACE_KEY))
-PERSON_GROUP_ID = "yu"
+PERSON_GROUP_ID_s = ["yu","boy"]
+if i in PERSON_GROUP_ID_s:
+	PERSON_GROUP_ID = i
+
 
 LINE_SECRET = CONFIG["line"]["line_secret"]
 LINE_TOKEN = CONFIG["line"]["line_token"]
