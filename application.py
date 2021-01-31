@@ -44,7 +44,7 @@ FACE_KEY = CONFIG["azure"]["face_key"]
 FACE_END = CONFIG["azure"]["face_end"]
 FACE_CLIENT = FaceClient(FACE_END, CognitiveServicesCredentials(FACE_KEY))
 
-PERSON_GROUP_ID = "boy"
+PERSON_GROUP_ID_s = ["boy","yu"]
 
 
 LINE_SECRET = CONFIG["line"]["line_secret"]
@@ -153,7 +153,8 @@ def azure_face_recognition(filename):
 	
     if len(detected_face) != 1:
         return ""
-    results = FACE_CLIENT.face.identify([detected_face[0].face_id], PERSON_GROUP_ID)
+    for PERSON_GROUP_ID in PERSON_GROUP_ID_s :	
+    	results = FACE_CLIENT.face.identify([detected_face[0].face_id], PERSON_GROUP_ID)
     if len(results) == 0:
         return "unknown"
     result = results[0].as_dict()
