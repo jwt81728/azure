@@ -169,16 +169,23 @@ def azure_face_recognition(filename):
 
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    url_dict = {
-      "TIBAME":"https://www.tibame.com/coursegoodjob/traffic_cli", 
-      "HELP":"https://developers.line.biz/zh-hant/docs/messaging-api/",
-      "MYLOCATION":"https://line.me/R/nv/location/"}
-# 將要發出去的文字變成TextSendMessage
+    """
+    Reply text message
+    """
+    json_file = {"TIBAME": "templates/bubble.json", "HELP": "templates/carousel.json"}
     try:
-        url = url_dict[event.message.text.upper()]
-        message = TextSendMessage(text=url)
+        filename = json_file[event.message.text.upper()]
+        with open(filename, "r") as f_r:
+            bubble = json.load(f_r)
+        f_r.close()
+        LINE_BOT.reply_message(
+            event.reply_token,
+            [FlexSendMessage(alt_text="Information", contents=bubble)],
+        )
     except:
         message = TextSendMessage(text=event.message.text)
+        LINE_BOT.reply_message(event.reply_token, message)
+
 # 回覆訊息
     LINE_BOT.reply_message(event.reply_token, message)
     
